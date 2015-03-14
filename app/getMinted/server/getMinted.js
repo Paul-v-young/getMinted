@@ -15,15 +15,15 @@ Meteor.methods({
 });
 
 Meteor.startup(function () {
-  if (Questions.find().count() === 0) {
-    var names = ["Buy a car?", "Get a job?", "Go on holiday?",
-    "Buy or rent a house", "Get married?", "Party time?"];
-    _.each(names, function (name) {
-      Questions.insert({
-        name: name,
-        answer: 1 
-      });
-    });
-  }
+  // if (Questions.find().count() === 0) {
+  //   var names = ["Buy a car?", "Get a job?", "Go on holiday?",
+  //   "Buy or rent a house", "Get married?", "Party time?"];
+  //   _.each(names, function (name) {
+  //     Questions.insert({
+  //       name: name,
+  //       answer: 1 
+  //     });
+  //   });
+  // }
 });
 

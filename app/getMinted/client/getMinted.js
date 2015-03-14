@@ -11,6 +11,14 @@ Template.player.helpers({
   }
 });
 
+Template.newPlayerForm.events({
+  'submit form': function(){
+    event.preventDefault();
+    console.log("Form submitted");
+    console.log(event.type)
+  }
+});
+
 Template.questionList.helpers({
   questions: function () {
     return Questions.find({}, { sort: { answer: -1, name: 1 } });
@@ -40,14 +48,14 @@ Template.question.events({
 });
 
 // temp until user name form done
-Meteor.call("newPlayer", "MrTest", function(error, results) {
-  Session.set("playerName", results.data.Name);
-  Session.set("playerId", results.data.Id);
-});
+// Meteor.call("newPlayer", "MrTest", function(error, results) {
+//   Session.set("playerName", results.data.Name);
+//   Session.set("playerId", results.data.Id);
+// });
 
-Meteor.startup(function () {
-  Meteor.call("getQuestion", Session.get("playerId") && 1, function(error, results) {
-    Session.get("playerId")
-    console.log(results);
-  });
-});
+// Meteor.startup(function () {
+//   Meteor.call("getQuestion", 77, function(error, results) {
+//     Session.get("playerId")
+//     console.log(results.content);
+//   });
+// });

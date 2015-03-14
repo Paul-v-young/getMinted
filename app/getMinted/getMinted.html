@@ -27,7 +27,7 @@
       <button class="inc">Choose</button>
     </div>
   {{else}}
-    <div class="message">Touch to start</div>
+    <div class="message">Enter a name to start</div>
   {{/if}}
 </template>
 
@@ -39,5 +39,19 @@
 </template>
 
 <template name="player">
+  {{#if playerName}}
     <div class="playerName">{{playerName}} [{{playerId}}]</div>
+  {{else}}
+    {{>newPlayerForm}}
+
+  {{/if}}
+</template>
+
+<template name="newPlayerForm">
+  <div class="playerName">
+    <form class="player-form">
+      <input name="playerName" id="playerName" type="text" value="{{playerName}}" placeholder="Enter your name" class="form-control"/>
+      <input type="submit" value="Start" />
+    </form>
+  </div>
 </template>
