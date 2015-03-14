@@ -1,0 +1,43 @@
+<head>
+  <title>getMinted!</title>
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+  <div class="outer">
+    <!-- <h1 class="title"><i class="fa fa-money fa-lg logo"></i></h1> -->
+    <h1 class="title">getMinted!</h1>
+    <div class="subtitle">Make your choice, live the consequences</div>
+    {{> player}}
+    {{> questionList}}
+  </div>
+</body>
+
+<template name="questionList">
+  <ol class="questionList">
+    {{#each questions}}
+      {{> question}}
+    {{/each}}
+  </ol>
+
+  {{#if selectedQuestion}}
+    <div class="details">
+      <div class="name">{{selectedQuestion}}</div>
+      <button class="inc">Choose</button>
+    </div>
+  {{else}}
+    <div class="message">Touch to start</div>
+  {{/if}}
+</template>
+
+<template name="question">
+  <li class="question {{selected}}">
+    <span class="name">{{name}}</span>
+    <span class="answer">{{answer}}</span>
+  </li>
+</template>
+
+<template name="player">
+    <div class="playerName">{{playerName}} [{{playerId}}]</div>
+</template>
