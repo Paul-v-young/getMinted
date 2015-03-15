@@ -15,35 +15,38 @@
 </body>
 
 <template name="questionList">
-  <ol class="questionList">
+  <ul class="questionList">
     {{#each questions}}
       {{> question}}
     {{/each}}
-  </ol>
+  </ul>
 
   {{#if selectedQuestion}}
-    <div class="details">
-      <div class="name">{{selectedQuestion}}</div>
-      <button class="inc">Choose</button>
-    </div>
+  <div class="details">
+    {{#each selectedOptions}}
+      {{> questionOption}}
+    {{/each}}
+  </div>
   {{else}}
-    <div class="message">Enter a name to start</div>
+    <span class="title">next question...</span>
   {{/if}}
 </template>
 
 <template name="question">
   <li class="question {{selected}}">
-    <span class="name">{{name}}</span>
-    <span class="answer">{{answer}}</span>
+    <span class="title">{{question.Id}} {{question.Title}} at {{question.Age}}?</span>
   </li>
+</template>
+
+<template name="questionOption">
+    <button class="option" name="{{this.Title}}" id="option{{this.Id}}">{{this.Title}}</button>
 </template>
 
 <template name="player">
   {{#if playerName}}
-    <div class="playerName">{{playerName}} [{{playerId}}]</div>
+    <div class="playerName">{{playerName}} [id:{{playerId}}]</div>
   {{else}}
     {{>newPlayerForm}}
-
   {{/if}}
 </template>
 

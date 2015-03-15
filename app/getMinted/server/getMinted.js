@@ -8,9 +8,11 @@ Meteor.methods({
     return Meteor.http.post("http://fintechjsy.azurewebsites.net/api/players", {params: {Name: requestedPlayerName}});
   },
 
-  getQuestion: function (playerId) {
+  addQuestion: function (playerId) {
     this.unblock();
-    return Meteor.http.get("http://fintechjsy.azurewebsites.net/api/Answers/NextQuestion/" + playerId);
+    var newQuestion =  Meteor.http.get("http://fintechjsy.azurewebsites.net/api/Answers/NextQuestion/" + playerId);
+    newQuestion.data.Title = newQuestion.data.Title.trim();
+    return Questions.insert({playerId: playerId, questionId: newQuestion.data.Id, question: newQuestion.data});
   }
 });
 

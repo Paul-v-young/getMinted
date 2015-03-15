@@ -14,24 +14,39 @@ Template.player.helpers({
 Template.newPlayerForm.events({
   'submit form': function(){
     event.preventDefault();
-    console.log("Form submitted");
-    console.log(event.type)
+    var playerNameVar = event.target.playerName.value;
+    Session.set("playerName", playerNameVar);
+    Session.set("questionPending", true);
+    Meteor.call("newPlayer", playerNameVar, function(error, results) {
+      Session.set("playerName", results.data.Name);
+      Session.set("playerId", results.data.Id);
+      Meteor.call("addQuestion", results.data.Id, function(error, newId) {
+        Session.set("selectedQuestion", newId);
+        Session.set("questionPending", false);
+      });
+    });
   }
 });
 
 Template.questionList.helpers({
   questions: function () {
-    return Questions.find({}, { sort: { answer: -1, name: 1 } });
+    return Questions.find({playerId: Session.get("playerId")}, { sort: { questionId: 1 } });
   },
   selectedQuestion: function () {
-    var question = Questions.findOne(Session.get("selectedQuestion"));
-    return question && question.name;
+    var selected = Questions.findOne(Session.get("selectedQuestion"));
+    return selected && selected.question;
+  },
+  selectedOptions: function () {
+    var selected = Questions.findOne(Session.get("selectedQuestion"));
+    console.log(selected.question.QuestionOptions);
+    return selected && selected.question.QuestionOptions;
   }
 });
 
 Template.questionList.events({
-  'click .inc': function () {
-    Questions.update(Session.get("selectedQuestion"), {$inc: {answer: 5}});
+  'click .option': function () {
+    console.log(event.target)
+    // Questions.update(Session.get("selectedQuestion"), {$inc: {answer: 5}});
   }
 });
 
